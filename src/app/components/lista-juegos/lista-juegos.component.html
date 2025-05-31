@@ -1,7 +1,7 @@
-<!-- Header de búsqueda -->
+
 <section class="search-header py-4 bg-darker">
   <div class="container">
-    <div class="row">
+    <div class="row align-items-end">
       <div class="col-lg-8">
         <h1 class="subtitle-gaming mb-3">
           @if(categoriaSeleccionada) {
@@ -10,21 +10,41 @@
             Todos los Juegos
           }
         </h1>
-        <div class="search-bar">
-          <div class="input-group">
+
+        <div class="d-flex flex-column flex-md-row gap-3 align-items-md-center">
+          <div class="input-group flex-grow-1">
             <input
               type="text"
               class="form-control input-gaming"
               placeholder="Buscar juegos, desarrolladores o categorías..."
               [(ngModel)]="terminoBusqueda"
-              (keyup.enter)="buscar()">
+              (keyup.enter)="buscar()"
+            />
             <button class="btn btn-gaming" type="button" (click)="buscar()">
               <i class="bi bi-search"></i>
             </button>
           </div>
+
+          <div>
+            <label for="ordenarSelect" class="form-label mb-1 d-block d-md-inline">Ordenar por:</label>
+            <select
+              id="ordenarSelect"
+              class="form-select"
+              [(ngModel)]="ordenSeleccionado"
+              (change)="aplicarOrdenamiento()"
+              style="min-width: 180px;"
+            >
+              <option value="nombreAsc">Nombre: A-Z</option>
+              <option value="nombreDesc">Nombre: Z-A</option>
+              <option value="precioAsc">Precio: Menor a Mayor</option>
+              <option value="precioDesc">Precio: Mayor a Menor</option>
+              <option value="ratingDesc">Rating: Mejor a Peor</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div class="col-lg-4 d-flex align-items-end justify-content-lg-end">
+
+      <div class="col-lg-4 d-flex align-items-center justify-content-lg-end mt-3 mt-lg-0">
         <div class="results-info">
           <span class="badge-gaming secondary">
             {{mostrandoResultados}} juegos encontrados
@@ -34,38 +54,6 @@
     </div>
   </div>
 </section>
-
-<div class="search-bar">
-  <div class="input-group mb-3">
-    <input
-      type="text"
-      class="form-control input-gaming"
-      placeholder="Buscar juegos, desarrolladores o categorías..."
-      [(ngModel)]="terminoBusqueda"
-      (keyup.enter)="buscar()"
-    />
-    <button class="btn btn-gaming" type="button" (click)="buscar()">
-      <i class="bi bi-search"></i>
-    </button>
-  </div>
-
-  <div class="input-group mb-3">
-    <label for="ordenarSelect" class="form-control input-gaming ng-pristine ng-valid ng-touched">Ordenar por:</label>
-    <select
-      id="ordenarSelect"
-      class="form-select"
-      [(ngModel)]="ordenSeleccionado"
-      (change)="aplicarOrdenamiento()"
-    >
-      <option value="Ascendente">Nombre: A-Z</option>
-      <option value="Descendente">Nombre: Z-A</option>
-      <option value="precioAsc">Precio: Menor a Mayor</option>
-      <option value="precioDesc">Precio: Mayor a Menor</option>
-      <option value="ratingDesc">Rating: Mejor a Peor</option>
-    </select>
-  </div>
-</div>
-
 
 <!-- Contenido principal -->
 <section class="py-5">
