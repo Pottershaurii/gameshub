@@ -1,7 +1,9 @@
-<h2>Estadísticas de Juegos</h2>
+<h2>Estadísticas</h2>
 
 <p>Total de juegos en la plataforma: {{ totalJuegos }}</p>
-<p>Juegos gratuitos: {{ juegosGratis }}</p>
-<p>Juegos de pago: {{ juegosPago }}</p>
-<p>Juego con mejor rating: {{ mejorJuego?.nombre }} ({{ mejorJuego?.rating | number: '1.1-1' }})</p>
-<p>Promedio de precios (juegos de pago): {{ promedioPrecios | currency:'USD' }}</p>
+<p>Juegos gratuitos: {{ juegosGratuitos }}</p>
+<p>Juegos de pago: {{ juegosDePago }}</p>
+
+<p>Juego con mejor rating: {{ mejorJuego.nombre }} ({{ mejorJuego.rating | number:'1.1-1' }})</p>
+
+<p>Promedio de precios: {{ promedioPrecio | currency:'PEN':'symbol':'1.2-2' }}</p>
