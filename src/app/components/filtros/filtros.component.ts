@@ -27,6 +27,8 @@ export class FiltrosComponent {
     categoria: '',
     plataforma: '',
     precio: '',
+    precioMin: null as number | null,
+    precioMax: null as number | null,
     rating: 0
   };
   
@@ -53,4 +55,15 @@ export class FiltrosComponent {
     this.filtros.rating = this.filtros.rating === rating ? 0 : rating;
     this.onFiltroChange();
   }
+
+  onPrecioMinChange(min: number | null): void {
+    this.filtros.precioMin = min;
+    this.onFiltroChange();
+  }
+  
+  onPrecioMaxChange(max: number | null): void {
+    this.filtros.precioMax = max;
+    this.onFiltroChange();
+  }
+
 }

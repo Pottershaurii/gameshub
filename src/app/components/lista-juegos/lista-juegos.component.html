@@ -35,6 +35,38 @@
   </div>
 </section>
 
+<div class="search-bar">
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control input-gaming"
+      placeholder="Buscar juegos, desarrolladores o categorías..."
+      [(ngModel)]="terminoBusqueda"
+      (keyup.enter)="buscar()"
+    />
+    <button class="btn btn-gaming" type="button" (click)="buscar()">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+
+  <div class="input-group mb-3">
+    <label for="ordenarSelect" class="form-control input-gaming ng-pristine ng-valid ng-touched">Ordenar por:</label>
+    <select
+      id="ordenarSelect"
+      class="form-select"
+      [(ngModel)]="ordenSeleccionado"
+      (change)="aplicarOrdenamiento()"
+    >
+      <option value="Ascendente">Nombre: A-Z</option>
+      <option value="Descendente">Nombre: Z-A</option>
+      <option value="precioAsc">Precio: Menor a Mayor</option>
+      <option value="precioDesc">Precio: Mayor a Menor</option>
+      <option value="ratingDesc">Rating: Mejor a Peor</option>
+    </select>
+  </div>
+</div>
+
+
 <!-- Contenido principal -->
 <section class="py-5">
   <div class="container">
@@ -44,7 +76,8 @@
         <div class="filters-sidebar">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="text-primary">Filtros</h5>
-            <button class="btn btn-sm btn-gaming-outline" (click)="limpiarFiltros()">
+            
+            <button class="btn btn-sm btn-gaming-outline" (click)="limpiarFiltros()" >
               <i class="bi bi-arrow-clockwise"></i> Limpiar
             </button>
           </div>

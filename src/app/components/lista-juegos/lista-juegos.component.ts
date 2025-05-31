@@ -18,12 +18,16 @@ import { FiltrosComponent } from '../filtros/filtros.component';
 export class ListaJuegosComponent implements OnInit {
   juegos$!: Observable<Juego[]>;
   juegosFiltrados$!: Observable<Juego[]>;
+  juegos: Juego[] = [];
+  ordenSeleccionado: string = 'Ascendente';
   
   private filtrosSubject = new BehaviorSubject<any>({
     busqueda: '',
     categoria: '',
     plataforma: '',
     precio: '',
+    precioMin: null,
+    precioMax: null,
     rating: 0
   });
   
@@ -38,6 +42,9 @@ export class ListaJuegosComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
+
+     // Cargar juegos desde el servicio
+
     this.juegos$ = this.juegosService.obtenerJuegos();
     
     // Verificar si viene de una categoría específica
@@ -85,14 +92,22 @@ export class ListaJuegosComponent implements OnInit {
         } else if (filtros.precio === 'pago') {
           resultado = resultado.filter(juego => !juego.esGratis);
         }
+
+        // Filtro por rango de precio
+        if (filtros.precioMin != null && filtros.precioMax != null && filtros.precioMin <= filtros.precioMax) {
+          resultado = resultado.filter(juego =>
+          juego.precio >= filtros.precioMin && juego.precio <= filtros.precioMax);
+        }
         
         // Filtro por rating
         if (filtros.rating > 0) {
           resultado = resultado.filter(juego => juego.rating >= filtros.rating);
         }
         
+        resultado = this.ordenarJuegos(resultado, this.ordenSeleccionado);
         this.mostrandoResultados = resultado.length;
         return resultado;
+
       })
     );
   }
@@ -116,6 +131,8 @@ export class ListaJuegosComponent implements OnInit {
       categoria: '',
       plataforma: '',
       precio: '',
+      precioMin: null,
+      precioMax: null,
       rating: 0
     });
   }
@@ -127,4 +144,30 @@ export class ListaJuegosComponent implements OnInit {
       categoria: this.categoriaSeleccionada
     });
   }
+
+    aplicarOrdenamiento(): void {
+    this.filtrosSubject.next({
+      ...this.filtrosSubject.value
+    });
+  }
+
+  ordenarJuegos(juegos: Juego[], orden: string): Juego[] {
+    return [...juegos].sort((a, b) => {
+      switch (orden) {
+        case 'Ascendente':
+          return a.nombre.localeCompare(b.nombre);
+        case 'Descendente':
+          return b.nombre.localeCompare(a.nombre);
+        case 'precioAsc':
+          return a.precio - b.precio;
+        case 'precioDesc':
+          return b.precio - a.precio;
+        case 'ratingDesc':
+          return b.rating - a.rating;
+        default:
+          return 0;
+      }
+    });
+  }
+
 }

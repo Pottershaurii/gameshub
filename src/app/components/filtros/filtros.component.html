@@ -1,3 +1,36 @@
+<!-- Rango de Precio -->
+<div class="filter-section mb-4">
+  <h6 class="filter-title text-uppercase mb-3">
+    <i class="bi bi-cash-stack me-2"></i>Rango de Precio
+  </h6>
+
+  <div class="d-flex align-items-center justify-content-between gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <input
+        type="number"
+        placeholder="Min"
+        [value]="filtros.precioMin"
+        (input)="onPrecioMinChange($any($event.target).valueAsNumber || null)"
+        min="0"
+        style="width: 80px;"
+        class="form-control"
+      />
+      <span>-</span>
+      <input
+        type="number"
+        placeholder="Max"
+        [value]="filtros.precioMax"
+        (input)="onPrecioMaxChange($any($event.target).valueAsNumber || null)"
+        min="0"
+        style="width: 80px;"
+        class="form-control"
+      />
+    </div>
+  </div>
+</div>
+
+
+
 <!-- Filtro por Categoría -->
 <div class="filter-section mb-4">
   <h6 class="filter-title text-uppercase mb-3">
